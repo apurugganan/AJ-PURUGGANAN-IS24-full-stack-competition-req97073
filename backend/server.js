@@ -1,10 +1,15 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
+var cors = require('cors')
+
 
 // mock data
 const data = require('./mock_data.json');
 
+
+// middleware
+app.use(cors());
 app.use(express.urlencoded({ extended: true}))          // parses data from forms
 app.use(express.json());                                // parse json 
 

@@ -1,8 +1,8 @@
 import { useState, useEffect} from 'react';
+import Table from "./Table";
 
 // mockurl
 const url = process.env.URL || "http://localhost:3000/";
-
 
 function App() {
   const [programs, setPrograms] = useState([]);
@@ -19,17 +19,8 @@ function App() {
   return (
     <div className="App">
       <h1>List of Programs</h1>
-      {programs.length > 0 ? (
-        <ul>
-          {programs.map((program) => (
-            <li key={program.productId}>{program.productName}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>Loading...</p>
-      )}
+      <Table programs={programs}/>  
     </div>
   );
 }
-
 export default App;

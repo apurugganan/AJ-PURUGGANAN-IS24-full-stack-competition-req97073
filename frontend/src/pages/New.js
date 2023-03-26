@@ -1,6 +1,12 @@
+import ProgramForm from "../components/ProgramForm";
+
+
 function New(){
   return (
-    <h1>New</h1>
+    <div>
+      <h4>Add New Program</h4>
+        <ProgramForm/>
+    </div>
   )
 }
 export default New;

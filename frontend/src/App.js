@@ -24,11 +24,11 @@ function App() {
     <div>
       <h1>IMB Products</h1>
       <Link to="/">Home</Link>
-      <Link to="/new">New</Link>
+      <Link to="/new">Add Program</Link>
       
       <Routes>
         <Route exact path="/" element={<Home programs={programs}/>} />
-        <Route path="/new" element={<New/>} />
+        <Route exact path="/new" element={<New/>} />
       </Routes>
     </div>
 

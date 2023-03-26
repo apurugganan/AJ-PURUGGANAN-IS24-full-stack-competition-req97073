@@ -1,5 +1,9 @@
 import { useState, useEffect} from 'react';
-import Table from "./Table";
+import {Link, Route, Routes} from 'react-router-dom';
+
+import Home from './pages/Home'
+import New from './pages/New'
+
 
 // mockurl
 const url = process.env.URL || "http://localhost:3000/";
@@ -17,10 +21,17 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1>List of Programs</h1>
-      <Table programs={programs}/>  
+    <div>
+      <h1>IMB Products</h1>
+      <Link to="/">Home</Link>
+      <Link to="/new">New</Link>
+      
+      <Routes>
+        <Route exact path="/" element={<Home programs={programs}/>} />
+        <Route path="/new" element={<New/>} />
+      </Routes>
     </div>
+
   );
 }
 export default App;

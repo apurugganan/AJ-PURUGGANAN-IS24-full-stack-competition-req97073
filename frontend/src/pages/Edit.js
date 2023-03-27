@@ -13,10 +13,25 @@ function Edit({changeState}){
       setProgram(data)
     })();
   }, [productId]);
+
+  async function editProgram(body){
+    const response = await fetch(`http://localhost:3000/api/edit/${productId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }});
+    const data = await response.json();
+    return data;
+  }
   return (
     <div>
       <h4>Edit Program {productId}</h4>
-        <ProgramForm changeState={changeState} program={program}/>
+        <ProgramForm 
+          changeState={changeState} 
+          program={program} 
+          sendForm={editProgram}
+        />
     </div>
   )
 }

@@ -8,6 +8,7 @@ function CustomInput(props){
           type={props.type} 
           value={props.value} 
           onChange={props.onChange} 
+          placeholder={props.placeholder}
           />
       </label>
     </div>

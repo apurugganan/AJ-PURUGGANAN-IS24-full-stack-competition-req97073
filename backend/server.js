@@ -18,6 +18,12 @@ app.get('/api/programs', (req,res) => {
   res.status(200).send(JSON.stringify(data));
 })
 
+app.get('/api/edit/:productId', (req, res) => {
+  const productId = req.params.productId;
+  const program = data.find( p => p.productId === productId)
+  res.status(200).send(JSON.stringify(program))
+})
+
 app.post('/api/programs', (req, res) => {
   const guid = aguid()
   const newProgram = {productId : guid , ...req.body}
@@ -25,6 +31,14 @@ app.post('/api/programs', (req, res) => {
   res.status(200).send(JSON.stringify(data));
 })
 
+app.patch('/api/edit/:productId', (req, res) => {
+  const productId = req.params.productId
+  const editProgram = req.body;
+  const findProgram = data.find(p => p.productId === productId);
+  let index = data.findIndex( p => p.productId === productId);
+  data[index] = {productId : findProgram.productId, ...editProgram}
+  res.status(200).send(JSON.stringify(data))
+})
 // LISTEN
 app.listen(port, () => {
   console.log(`Server listening at port: ${port}`);

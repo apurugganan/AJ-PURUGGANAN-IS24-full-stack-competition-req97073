@@ -18,12 +18,11 @@ app.get('/api/programs', (req,res) => {
   res.status(200).send(JSON.stringify(data));
 })
 
-app.get('/api/edit/:productId', (req, res) => {
+app.get('/api/edit/:productId', async (req, res) => {
   const productId = req.params.productId;
-  const program = data.find( p => p.productId === productId)
+  const program = await data.find( p => p.productId === productId)
   res.status(200).send(JSON.stringify(program))
 })
-
 
 app.post('/api/programs', (req, res) => {
   const guid = aguid()

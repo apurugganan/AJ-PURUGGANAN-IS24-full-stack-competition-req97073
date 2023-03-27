@@ -1,64 +1,79 @@
 import {useState} from 'react'
 import CustomInput from './CustomInput'
 
-function ProgramForm(){
-
+function ProgramForm({changeState}){
   const [productName, setProductName] = useState("");
-  const [productOwner, setProductOwner] = useState("");
-  const [scrumMaster, setscrumMaster] = useState("");
+  const [productOwnerName, setProductOwnerName] = useState("");
+  const [scrumMasterName, setscrumMasterName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [methodology, setMethodology] = useState("");
-  const [developer1, setDeveloper1] = useState([]);
-  const [developer2, setDeveloper2] = useState([]);
-  const [developer3, setDeveloper3] = useState([]);
-  const [developer4, setDeveloper4] = useState([]);
-  const [developer5, setDeveloper5] = useState([]);
+  const [developer1, setDeveloper1] = useState("");
+  const [developer2, setDeveloper2] = useState("");
+  const [developer3, setDeveloper3] = useState("");
+  const [developer4, setDeveloper4] = useState("");
+  const [developer5, setDeveloper5] = useState("");
+  
+  const [error, setError] = useState("")
 
-  function handleSubmit(evt){
+  async function handleSubmit(evt){
+    console.log("handle submit fired")
     evt.preventDefault()
-    console.log('submit')
-    console.log({
+    if(!productName || !startDate || !productOwnerName || 
+      !scrumMasterName || !developer1 || !methodology){ 
+      console.log('incomplete required field')
+      return
+    }
+
+    const developers = [developer1];
+
+    if(developer2){
+      developers.push(developer2)
+    }
+    if(developer3){
+      developers.push(developer3)
+    }
+    if(developer4){
+      developers.push(developer4)
+    }
+    if(developer5){
+      developers.push(developer5)
+    }
+
+    const body = {
       productName,
       startDate,
       methodology,
-      productOwner,
-      scrumMaster,
-      developer1,
-      developer2,
-      developer3,
-      developer4,
-      developer5,
-    });
+      productOwnerName,
+      scrumMasterName,
+      developers
+    }
+
+    const response = await fetch(`http://localhost:3000/api/programs`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }});
+    
+    const data = await response.json();
+    
+    changeState(data)
+      
   }
 
   return (
     <form onSubmit={handleSubmit}>
-       {/* <CustomInput 
+      <CustomInput 
         label="Program Name" 
         type="text" 
         value={productName} 
-        onChange={(e) => setProductName(e.target.value)}/> */}
-      <div>
-       
-        <label>
-          Program Name
-          <input 
-            type="text" 
-            value={productName} 
-            onChange={(e) => setProductName(e.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Start Date
-          <input 
-            type="date" 
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-        </label>
-      </div>
+        onChange={(e) => setProductName(e.target.value)}/>
+      <CustomInput 
+        label="Start Date" 
+        type="date" 
+        value={startDate} 
+        onChange={(e) => setStartDate(e.target.value)}/>
+      
       <div>
         <label>
           Methodology
@@ -66,85 +81,51 @@ function ProgramForm(){
             value={methodology}
             onChange={(e) => setMethodology(e.target.value)}
           >
-            <option>Agile</option>
-            <option>Waterfall</option>
+            <option value=""></option>
+            <option value="agile">Agile</option>
+            <option value="waterfall">Waterfall</option>
           </select>
         </label>
       </div>
-      <div>
-        <label>
-          Scrum Master
-          <input 
-            type="text" 
-            value={scrumMaster}
-            onChange={(e) => setscrumMaster(e.target.value)}  
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Product Owner
-          <input 
-            type="text" 
-            value={productOwner}
-            onChange={(e) => setProductOwner(e.target.value)}  
-          />
-        </label>
-      </div>
-      {/* Developers */}
-      <div>
-        <div>
-          <label>
-            Developer 1
-            <input 
-              type="text" 
-              value={developer1}
-              onChange={(e) => setDeveloper1(e.target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Developer 2
-            <input 
-              type="text" 
-              value={developer2}
-              onChange={(e) => setDeveloper2(e.target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Developer 3
-            <input 
-              type="text" 
-              value={developer3}
-              onChange={(e) => setDeveloper3(e.target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Developer 4
-            <input 
-              type="text" 
-              value={developer4}
-              onChange={(e) => setDeveloper4(e.target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Developer 5
-            <input 
-              type="text" 
-              value={developer5}
-              onChange={(e) => setDeveloper5(e.target.value)}
-            />
-          </label>
-        </div>  
-      </div>
-    
+
+      <CustomInput 
+        label="Product Owner" 
+        type="text" 
+        value={productOwnerName} 
+        onChange={(e) => setProductOwnerName(e.target.value)}/>
+
+      <CustomInput 
+        label="Scrum Master" 
+        type="text" 
+        value={scrumMasterName} 
+        onChange={(e) => setscrumMasterName(e.target.value)}/>
+
+
+      <CustomInput 
+        label="Developer 1" 
+        type="text" 
+        value={developer1} 
+        onChange={(e) => setDeveloper1(e.target.value)}/>
+      <CustomInput 
+        label="Developer 2" 
+        type="text" 
+        value={developer2} 
+        onChange={(e) => setDeveloper2(e.target.value)}/>
+      <CustomInput 
+        label="Developer 3" 
+        type="text" 
+        value={developer3} 
+        onChange={(e) => setDeveloper3(e.target.value)}/>
+      <CustomInput 
+        label="Developer 4" 
+        type="text" 
+        value={developer4} 
+        onChange={(e) => setDeveloper4(e.target.value)}/>
+      <CustomInput 
+        label="Developer 5" 
+        type="text" 
+        value={developer5} 
+        onChange={(e) => setDeveloper5(e.target.value)}/>
     <button type='submit'>Save</button>
     </form>
   )

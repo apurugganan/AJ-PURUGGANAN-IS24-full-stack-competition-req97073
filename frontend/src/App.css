@@ -52,3 +52,9 @@ form{
 select.form-input{
   width: 205px;
 }
+
+.search-inputs{
+  display: inline-block;
+  width : 120px;
+  padding: 2px;
+}

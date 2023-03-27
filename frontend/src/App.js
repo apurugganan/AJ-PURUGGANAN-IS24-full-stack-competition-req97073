@@ -1,12 +1,13 @@
 import { useState, useEffect} from 'react';
 import {Link, Route, Routes} from 'react-router-dom';
 
-import Home from './pages/Home'
-import New from './pages/New'
+import Home from './pages/Home';
+import New from './pages/New';
+import Edit from './pages/Edit';
 
 
 // mockurl
-const url = process.env.URL || "http://localhost:3000/";
+const url = process.env.URL || "http://localhost:3000";
 
 function App() {
   const [programs, setPrograms] = useState([]);
@@ -14,21 +15,26 @@ function App() {
   // use
   useEffect( () => {
     (async () => {
-      const response = await fetch(url);
+      const response = await fetch(`${url}/api/programs`);
       const data = await response.json();    
       setPrograms(data);
     })();
   }, []);
 
+  // changestate
+  function changeState(data){
+    setPrograms(data)
+  }
   return (
     <div>
       <h1>IMB Products</h1>
       <Link to="/">Home</Link>
-      <Link to="/new">New</Link>
+      <Link to="/new">Add Program</Link>
       
       <Routes>
         <Route exact path="/" element={<Home programs={programs}/>} />
-        <Route path="/new" element={<New/>} />
+        <Route exact path="/new" element={<New changeState={changeState}/>} />
+        <Route exact path="/edit/:productId" element={<Edit changeState={changeState}/>} />
       </Routes>
     </div>
 

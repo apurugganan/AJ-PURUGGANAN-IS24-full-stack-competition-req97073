@@ -1,7 +1,12 @@
+import {Link, Route, Routes} from 'react-router-dom';
+
 function TableRow({program}){
+
+  const productId = `/edit/${program.productId}`
   return(
     <tr>
       <td>
+        <Link to={productId}>Edit</Link>
         {program.productId}
       </td>
       <td>

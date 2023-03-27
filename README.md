@@ -1,5 +1,5 @@
 
-# BC Public Service: Codding Challenge
+# BC Public Service: Coding Challenge
 #### aj-purugganan-IS24-full-stack-competition-req97073
 
 ## Description

@@ -1,11 +1,11 @@
 import ProgramForm from "../components/ProgramForm";
 
 
-function New(){
+function New({changeState}){
   return (
     <div>
       <h4>Add New Program</h4>
-        <ProgramForm/>
+        <ProgramForm changeState={changeState}/>
     </div>
   )
 }

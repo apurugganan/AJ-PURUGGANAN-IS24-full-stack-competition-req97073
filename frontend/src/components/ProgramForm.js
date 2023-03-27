@@ -57,13 +57,12 @@ function ProgramForm({changeState, program, sendForm}){
       || !methodology
       || !productOwnerName 
       || !scrumMasterName 
-      // || !developer1
+      || !developer1
       ){ 
       console.log('incomplete required field')
       return
     }
 
-    
     const developers = [developer1];
     if(developer2){developers.push(developer2)}
     if(developer3){developers.push(developer3)}

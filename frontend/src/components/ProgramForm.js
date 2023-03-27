@@ -61,7 +61,8 @@ function ProgramForm({changeState, program, sendForm, formType}){
       || !scrumMasterName 
       || !developer1
       ){
-      setError({message : "please make sure all necessary fields are filled"})
+      setError({message : "Please make sure all necessary fields are filled. Required *"});
+      setSuccess("")
       return
     }
 
@@ -85,7 +86,8 @@ function ProgramForm({changeState, program, sendForm, formType}){
     const data = await sendForm(body);
     // let react know to change home
     changeState(data);
-    setSuccess({message : "program saved"})
+    setSuccess({message : "program saved"});
+    setError("");
 
     if(formType === "new"){
       // reset form
@@ -99,36 +101,38 @@ function ProgramForm({changeState, program, sendForm, formType}){
       setDeveloper3("")
       setDeveloper4("")
       setDeveloper5("")
-      setError("")
+      
     }
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      { error && <p>{error.message}</p>}
-      { success && <p>{success.message}</p>}
+      { error && <small className='form-message'>{error.message}</small>}
+      { success && <small className='form-message'>{success.message}</small>}
 
       <CustomInput 
         label="Program Name" 
         type="text" 
         value={productName} 
         onChange={(e) => setProductName(e.target.value)}
+        isRequired="true"
         />
       <CustomInput 
         label="Start Date" 
         type="date" 
         value={startDate} 
         onChange={(e) => setStartDate(e.target.value)}
+        isRequired="true"
         />
       
       <div>
-        <label>
-          Methodology
-          <select value={methodology} onChange={(e) => setMethodology(e.target.value)}>
+        <label >
+          <span className='form-label'>Methodology</span>
+          <select  className='form-input' value={methodology} onChange={(e) => setMethodology(e.target.value)}>
             <option value=""></option>
             <option value="agile">Agile</option>
             <option value="waterfall">Waterfall</option>
-          </select>
+          </select><small className="form-required">*</small>
         </label>
       </div>
 
@@ -137,18 +141,21 @@ function ProgramForm({changeState, program, sendForm, formType}){
         type="text" 
         value={productOwnerName} 
         onChange={(e) => setProductOwnerName(e.target.value)}
+        isRequired="true"
         />
       <CustomInput 
         label="Scrum Master" 
         type="text" 
         value={scrumMasterName} 
         onChange={(e) => setscrumMasterName(e.target.value)}
+        isRequired="true"
         />
       <CustomInput 
         label="Developer 1" 
         type="text" 
         value={developer1} 
         onChange={(e) => setDeveloper1(e.target.value)}
+        isRequired="true"
         />
       <CustomInput 
         label="Developer 2" 
@@ -174,7 +181,7 @@ function ProgramForm({changeState, program, sendForm, formType}){
         value={developer5} 
         onChange={(e) => setDeveloper5(e.target.value)}
         />
-    <button type='submit'>Save</button>
+      <button className="form-button" type='submit'>Save</button>
     </form>
   )
 }

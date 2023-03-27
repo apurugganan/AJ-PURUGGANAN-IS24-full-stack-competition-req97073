@@ -15,11 +15,11 @@ function New({changeState}){
   return (
     <div>
       <h4>Add New Program</h4>
-        <ProgramForm 
-          changeState={changeState} 
-          sendForm={addProgram} 
-          formType="new"
-        />
+      <ProgramForm 
+        changeState={changeState} 
+        sendForm={addProgram} 
+        formType="new"
+      />
     </div>
   )
 }

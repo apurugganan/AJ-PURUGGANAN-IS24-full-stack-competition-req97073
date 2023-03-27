@@ -1,18 +1,7 @@
 import {useEffect, useState} from 'react'
 import CustomInput from './CustomInput'
 
-function ProgramForm({changeState, program, sendForm}){
-  const pName = program?.productName ?? "";
-  const pStart = program?.startDate?.split('/').join('-') ?? "";
-  const pMet = program?.methodology ?? "";
-  const pOwner = program?.productOwnerName ?? "";
-  const scrum = program?.scrumMasterName ?? "";
-  const dev1 = program?.developers?.[0] ?? "";
-  const dev2 = program?.developers?.[1] ?? "";
-  const dev3 = program?.developers?.[2] ?? "";
-  const dev4 = program?.developers?.[3] ?? "";
-  const dev5 = program?.developers?.[4] ?? "";
-
+function ProgramForm({changeState, program, sendForm, formType}){
   const [productName, setProductName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [methodology, setMethodology] = useState("");
@@ -23,6 +12,19 @@ function ProgramForm({changeState, program, sendForm}){
   const [developer3, setDeveloper3] = useState("");
   const [developer4, setDeveloper4] = useState("");
   const [developer5, setDeveloper5] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const pName = program?.productName ?? "";
+  const pStart = program?.startDate?.split('/').join('-') ?? "";
+  const pMet = program?.methodology ?? "";
+  const pOwner = program?.productOwnerName ?? "";
+  const scrum = program?.scrumMasterName ?? "";
+  const dev1 = program?.developers?.[0] ?? "";
+  const dev2 = program?.developers?.[1] ?? "";
+  const dev3 = program?.developers?.[2] ?? "";
+  const dev4 = program?.developers?.[3] ?? "";
+  const dev5 = program?.developers?.[4] ?? "";
 
   useEffect(()=>{
     (() => {
@@ -58,8 +60,9 @@ function ProgramForm({changeState, program, sendForm}){
       || !productOwnerName 
       || !scrumMasterName 
       || !developer1
-      ){ 
-      console.log('incomplete required field')
+      ){
+      setError({message : "Please make sure all necessary fields are filled. Required *"});
+      setSuccess("")
       return
     }
 
@@ -81,37 +84,55 @@ function ProgramForm({changeState, program, sendForm}){
 
     // network call
     const data = await sendForm(body);
-    // let react know changing state
+    // let react know to change home
     changeState(data);
+    setSuccess({message : "program saved"});
+    setError("");
+
+    if(formType === "new"){
+      // reset form
+      setProductName("")
+      setStartDate("")
+      setMethodology("")
+      setProductOwnerName("")
+      setscrumMasterName("")
+      setDeveloper1("")
+      setDeveloper2("")
+      setDeveloper3("")
+      setDeveloper4("")
+      setDeveloper5("")
+      
+    }
   }
 
   return (
     <form onSubmit={handleSubmit}>
+      { error && <small className='form-message'>{error.message}</small>}
+      { success && <small className='form-message'>{success.message}</small>}
+
       <CustomInput 
         label="Program Name" 
         type="text" 
         value={productName} 
         onChange={(e) => setProductName(e.target.value)}
-      
+        isRequired="true"
         />
       <CustomInput 
         label="Start Date" 
         type="date" 
         value={startDate} 
         onChange={(e) => setStartDate(e.target.value)}
+        isRequired="true"
         />
       
       <div>
-        <label>
-          Methodology
-          <select 
-            value={methodology}
-            onChange={(e) => setMethodology(e.target.value)}
-          >
+        <label >
+          <span className='form-label'>Methodology</span>
+          <select  className='form-input' value={methodology} onChange={(e) => setMethodology(e.target.value)}>
             <option value=""></option>
             <option value="agile">Agile</option>
             <option value="waterfall">Waterfall</option>
-          </select>
+          </select><small className="form-required">*</small>
         </label>
       </div>
 
@@ -120,18 +141,21 @@ function ProgramForm({changeState, program, sendForm}){
         type="text" 
         value={productOwnerName} 
         onChange={(e) => setProductOwnerName(e.target.value)}
+        isRequired="true"
         />
       <CustomInput 
         label="Scrum Master" 
         type="text" 
         value={scrumMasterName} 
         onChange={(e) => setscrumMasterName(e.target.value)}
+        isRequired="true"
         />
       <CustomInput 
         label="Developer 1" 
         type="text" 
         value={developer1} 
         onChange={(e) => setDeveloper1(e.target.value)}
+        isRequired="true"
         />
       <CustomInput 
         label="Developer 2" 
@@ -156,9 +180,8 @@ function ProgramForm({changeState, program, sendForm}){
         type="text" 
         value={developer5} 
         onChange={(e) => setDeveloper5(e.target.value)}
-       
         />
-    <button type='submit'>Save</button>
+      <button className="form-button" type='submit'>Save</button>
     </form>
   )
 }

@@ -4,6 +4,7 @@ import {Link, Route, Routes} from 'react-router-dom';
 import Home from './pages/Home';
 import New from './pages/New';
 import Edit from './pages/Edit';
+import "./App.css";
 
 
 // mockurl
@@ -26,10 +27,10 @@ function App() {
     setPrograms(data)
   }
   return (
-    <div>
+    <div className='container'>
       <h1>IMB Products</h1>
-      <Link to="/">Home</Link>
-      <Link to="/new">Add Program</Link>
+      <Link to="/"><span>Home</span></Link>
+      <Link to="/new"><span>Add Program</span></Link>
       
       <Routes>
         <Route exact path="/" element={<Home programs={programs}/>} />

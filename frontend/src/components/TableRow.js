@@ -6,8 +6,8 @@ function TableRow({program}){
   return(
     <tr>
       <td>
-        <Link to={productId}>Edit</Link>
         {program.productId}
+        <p><Link to={productId}>Edit</Link></p>
       </td>
       <td>
         {program.productName}

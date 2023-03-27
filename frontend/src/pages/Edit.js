@@ -31,6 +31,7 @@ function Edit({changeState}){
           changeState={changeState} 
           program={program} 
           sendForm={editProgram}
+          formType="edit"
         />
     </div>
   )

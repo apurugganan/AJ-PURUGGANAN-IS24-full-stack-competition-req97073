@@ -1,7 +1,9 @@
-
+import {useState} from 'react'
 import TableRow from './TableRow'
 
 function Table({programs}){
+  const [searchTerm, setSearchTerm] = useState("")
+
   const tableHead = [
     "Product Number",
     "Product Name",
@@ -14,7 +16,13 @@ function Table({programs}){
 
   return (
     <div>
-      <h4>Number of Products {programs.length}</h4>
+      <input 
+        type="text" 
+        placeholder='Search Scrum Master'
+        onChange={(e)=>{setSearchTerm(e.target.value)
+        
+        }}/>
+      <h4>Number of Products {programs.filter( p => p.scrumMasterName.toLowerCase().includes(searchTerm.toLocaleLowerCase())).length}</h4>
       <table>
         <thead>
           <tr>
@@ -25,7 +33,9 @@ function Table({programs}){
         </thead>
         <tbody>
             {
-              programs.map((program) => <TableRow key={program.productId}program={program}/>)
+              programs
+                .filter( p => p.scrumMasterName.toLowerCase().includes(searchTerm.toLocaleLowerCase()))
+                .map((program) => <TableRow key={program.productId}program={program}/>)
             }
         </tbody>    
       </table>

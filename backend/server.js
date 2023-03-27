@@ -31,6 +31,13 @@ app.post('/api/programs', (req, res) => {
   res.status(200).send(JSON.stringify(data));
 })
 
+app.patch('/api/edit/:productId', async (req, res) => {
+  const productId = req.params.productId
+  const editProgram = req.body;
+  let index = await data.findIndex( p => p.productId === productId);
+  data[index] = {productId, ...editProgram}
+  res.status(200).send(JSON.stringify(data))
+})
 // LISTEN
 app.listen(port, () => {
   console.log(`Server listening at port: ${port}`);

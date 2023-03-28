@@ -28,9 +28,9 @@ npm install
 npm run dev
 ```
 
-5. Navigate to frontend folder and install node modules
+5. Open a new terminal. Navigate back to the project folder then to the frontend folder. Then install node modules
 ```
-cd ../frontend
+cd {path-to-projectfolder}/frontend
 npm install
 ```
 

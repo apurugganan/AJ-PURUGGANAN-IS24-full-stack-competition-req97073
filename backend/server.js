@@ -4,9 +4,31 @@ const app = express();
 const port = process.env.PORT || 3000;
 const cors = require('cors');
 const fs = require('fs');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 // mock data
 const data = require('./mock_data.json');
+
+// swagger
+// Extended: https://swagger.io/specification/#infoObject
+const swaggerOptions = {
+  swaggerDefinition: {
+    info : {
+      title: 'Products API',
+      descrtiption : "Product API information",
+      contact: {
+        name : "AJ"
+      },
+      servers : ["http://localhost:3000"]
+      
+    }
+  },
+  apis: ["server.js"]
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // MIDDLEWARE
 app.use(cors());                                    // allow cors

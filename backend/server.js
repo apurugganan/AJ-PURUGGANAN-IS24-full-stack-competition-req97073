@@ -73,8 +73,8 @@ app.get('/api/edit/:productId', (req, res, next) => {
     const productId = req.params.productId;
     const program = data.find( p => p.productId === productId);
     if(!program) throw new ExpressError(400, 'no matching product')
+    
     res.status(200).send(JSON.stringify(program));
-
   } catch(err){
     next(err)
   }
@@ -111,6 +111,7 @@ app.get('/api/edit/:productId', (req, res, next) => {
 app.post('/api/programs', async (req, res, next) => {
   try{
     const {productName, startDate, methodology, productOwnerName, scrumMasterName, developers} = req.body;
+    // validate body
     if(!productName || !startDate || !methodology || !productOwnerName || !scrumMasterName || !developers ){
       throw new ExpressError(400, 'required fields incomplete')
     }
@@ -126,8 +127,10 @@ app.post('/api/programs', async (req, res, next) => {
       scrumMasterName, 
       developers
     };
+    
     data.push(newProgram);
     fs.writeFileSync("./mock_data.json", JSON.stringify(data,null,4));
+    
     res.status(201).send(JSON.stringify(data));
 
   } catch(err) {
@@ -136,15 +139,22 @@ app.post('/api/programs', async (req, res, next) => {
 })
 
 
-app.put('/api/edit/:productId', async (req, res) => {
-  const productId = req.params.productId
-  const editProgram = req.body;
-  const findProgram = await data.find(p => p.productId === productId);
-  let index = await data.findIndex( p => p.productId === productId);
-  data[index] = {productId : findProgram.productId, ...editProgram};
-  fs.writeFileSync("./mock_data.json", JSON.stringify(data,null,4));
+app.put('/api/edit/:productId', async (req, res, next) => {
+  try{
+    const productId = req.params.productId;
+    const editProgram = req.body;
+    const findProgram = await data.find(p => p.productId === productId);
 
-  res.status(200).send(JSON.stringify(data))
+    if(!findProgram) throw new ExpressError(400, 'no product matches')
+    let index = await data.findIndex( p => p.productId === productId);
+    data[index] = {productId : findProgram.productId, ...editProgram};
+
+    fs.writeFileSync("./mock_data.json", JSON.stringify(data,null,4));
+
+    res.status(200).send(JSON.stringify(data))
+  } catch(err){
+    next(err)
+  }
 })
 
 

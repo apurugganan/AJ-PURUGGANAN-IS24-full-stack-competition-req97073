@@ -107,8 +107,8 @@ function ProgramForm({changeState, program, sendForm, formType}){
 
   return (
     <form onSubmit={handleSubmit}>
-      { error && <small className='form-message'>{error.message}</small>}
-      { success && <small className='form-message'>{success.message}</small>}
+      { error && <small className='error-message'>{error.message}</small>}
+      { success && <small className='success-message'>{success.message}</small>}
 
       <CustomInput 
         label="Program Name" 
@@ -117,6 +117,8 @@ function ProgramForm({changeState, program, sendForm, formType}){
         onChange={(e) => setProductName(e.target.value)}
         isRequired="true"
         />
+      { error && !productName && <small className='error-message'>field is required</small>}
+      
       <CustomInput 
         label="Start Date" 
         type="date" 
@@ -124,7 +126,8 @@ function ProgramForm({changeState, program, sendForm, formType}){
         onChange={(e) => setStartDate(e.target.value)}
         isRequired="true"
         />
-      
+      { error && !startDate && <small className='error-message'>field is required</small>}
+
       <div>
         <label >
           <span className='form-label'>Methodology</span>
@@ -135,6 +138,7 @@ function ProgramForm({changeState, program, sendForm, formType}){
           </select><small className="form-required">*</small>
         </label>
       </div>
+      { error && !methodology && <small className='error-message'>field is required</small>}
 
       <CustomInput 
         label="Product Owner" 
@@ -142,21 +146,27 @@ function ProgramForm({changeState, program, sendForm, formType}){
         value={productOwnerName} 
         onChange={(e) => setProductOwnerName(e.target.value)}
         isRequired="true"
-        />
+      />
+      { error && !productOwnerName && <small className='error-message'>field is required</small>}
+
       <CustomInput 
         label="Scrum Master" 
         type="text" 
         value={scrumMasterName} 
         onChange={(e) => setscrumMasterName(e.target.value)}
         isRequired="true"
-        />
+      />
+      { error && !scrumMasterName && <small className='error-message'>field is required</small>}
+
       <CustomInput 
         label="Developer 1" 
         type="text" 
         value={developer1} 
         onChange={(e) => setDeveloper1(e.target.value)}
         isRequired="true"
-        />
+      />
+      { error && !developer1 && <small className='error-message'>field is required</small>}
+
       <CustomInput 
         label="Developer 2" 
         type="text" 

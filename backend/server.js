@@ -121,6 +121,18 @@ app.put('/api/edit/:productId', async (req, res) => {
   res.status(200).send(JSON.stringify(data))
 })
 
+
+// 404
+app.all('*', (req, res, next)=> {
+  res.status(404).send(`resource not found`)
+})
+
+
+
+
+
+
+
 // LISTEN
 app.listen(port, () => {
   console.log(`Server listening at port: ${port}`);

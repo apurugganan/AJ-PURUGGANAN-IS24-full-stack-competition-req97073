@@ -10,6 +10,9 @@ const swaggerUi = require('swagger-ui-express');
 // mock data
 const data = require('./mock_data.json');
 
+// utilities
+const ExpressError = require('./utilities/ExpressError');
+
 // swagger
 // Extended: https://swagger.io/specification/#infoObject
 const swaggerOptions = {
@@ -122,14 +125,22 @@ app.put('/api/edit/:productId', async (req, res) => {
 })
 
 
-// 404
+// 404 Route
 app.all('*', (req, res, next)=> {
-  res.status(404).send(`resource not found`)
+  next(new ExpressError(404, 'Resource not found.'));
 })
 
-
-
-
+// default errorhandler
+app.use((error, req, res, next) => {
+  if(!error.statusCode){
+    error.statusCode = 500
+  }
+  if(!error.message){
+    error.message = "Whoops! Something went wrong."
+  }
+  const obj = {message : error.message}
+  res.status(error.statusCode).send(JSON.stringify(obj))
+})
 
 
 

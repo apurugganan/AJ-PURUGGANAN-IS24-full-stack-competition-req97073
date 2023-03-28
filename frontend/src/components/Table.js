@@ -38,7 +38,7 @@ function Table({programs}){
           </select>
         </label>
       </div>
-      <h4>Number of Products 
+      <h4>Number of Products: 
         { role === "scrum master" ? 
             programs
               .filter( p => p.scrumMasterName.toLowerCase().includes(searchTerm.toLocaleLowerCase())).length

@@ -26,7 +26,7 @@ function Edit({changeState}){
   }
   return (
     <div>
-      <h4>Edit Program {productId}</h4>
+      <h4>Edit Product {productId}</h4>
         <ProgramForm 
           changeState={changeState} 
           program={program} 

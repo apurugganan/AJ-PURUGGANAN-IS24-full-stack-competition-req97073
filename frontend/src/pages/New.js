@@ -14,7 +14,7 @@ function New({changeState}){
   }
   return (
     <div>
-      <h4>Add New Program</h4>
+      <h4>Add New Product</h4>
       <ProgramForm 
         changeState={changeState} 
         sendForm={addProgram} 

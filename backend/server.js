@@ -54,6 +54,13 @@ app.get('/api/programs', (req,res) => {
  * /api/edit/:productId: 
  *  get:
  *    description: Used to request a product
+ *    parameters:
+ *      - in: path
+ *        name: productId
+ *        required: true
+ *        description: String guid
+ *        schema: 
+ *          type: string
  *    responses:
  *      '200' : 
  *        description : a successful response
@@ -72,14 +79,22 @@ app.get('/api/edit/:productId', (req, res) => {
  *    parameters:
  *      - in: body
  *        name: product
- *        schema:
- *          productId : string
- *          productOwnerName : string
- *          scrumMasterName : string
- *          productName : string
- *          startDate : string
- *          methodology : string
- *          developers : [string]
+ *        required: true
+ *        content:
+ *          application/json:
+ *          schema:
+ *            type : object
+ *            properties:
+ *              productId : string
+ *              productOwnerName : string
+ *              scrumMasterName : string
+ *              productName : string
+ *              startDate : string
+ *              methodology : string
+ *              developers :
+ *                type: array
+ *                items:  
+ *                  type: string
  *    responses:
  *      '201' : 
  *        description : successful added product 
@@ -94,31 +109,12 @@ app.post('/api/programs', async (req, res) => {
   res.status(201).send(JSON.stringify(data));
 })
 
-/**
- * @swagger
- * /api/edit/:productId: 
- *  patch:
- *    description: Used to update a product
- *    parameters:
- *      - in: body
- *        name: product
- *        schema:
- *          productId : string
- *          productOwnerName : string
- *          scrumMasterName : string
- *          productName : string
- *          startDate : string
- *          methodology : string
- *          developers : string
- *    responses:
- *      '200' : 
- *        description : successfully updated product
- */
-app.patch('/api/edit/:productId', async (req, res) => {
+
+app.put('/api/edit/:productId', async (req, res) => {
   const productId = req.params.productId
   const editProgram = req.body;
-  const findProgram = data.find(p => p.productId === productId);
-  let index = data.findIndex( p => p.productId === productId);
+  const findProgram = await data.find(p => p.productId === productId);
+  let index = await data.findIndex( p => p.productId === productId);
   data[index] = {productId : findProgram.productId, ...editProgram};
   fs.writeFileSync("./mock_data.json", JSON.stringify(data,null,4));
 

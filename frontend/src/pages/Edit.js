@@ -16,7 +16,7 @@ function Edit({changeState}){
 
   async function editProgram(body){
     const response = await fetch(`http://localhost:3000/api/edit/${productId}`, {
-      method: 'PATCH',
+      method: 'PUT',
       body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json'

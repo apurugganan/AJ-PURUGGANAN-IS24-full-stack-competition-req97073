@@ -30,7 +30,7 @@ function App() {
     <div className='container'>
       <h1>IMB Products</h1>
       <Link to="/"><span>Home</span></Link>
-      <Link to="/new"><span>Add Program</span></Link>
+      <Link to="/new"><span>Add Products</span></Link>
       
       <Routes>
         <Route exact path="/" element={<Home programs={programs}/>} />

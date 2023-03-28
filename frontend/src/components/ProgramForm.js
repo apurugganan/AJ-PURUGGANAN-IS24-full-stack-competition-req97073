@@ -12,8 +12,10 @@ function ProgramForm({changeState, program, sendForm, formType}){
   const [developer3, setDeveloper3] = useState("");
   const [developer4, setDeveloper4] = useState("");
   const [developer5, setDeveloper5] = useState("");
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isSaved, setIsSaved] = useState(false);
 
   const pName = program?.productName ?? "";
   const pStart = program?.startDate?.split('/').join('-') ?? "";
@@ -51,6 +53,7 @@ function ProgramForm({changeState, program, sendForm, formType}){
     dev4,
     dev5
   ])
+
 
   async function handleSubmit(evt){
     evt.preventDefault()
@@ -91,24 +94,25 @@ function ProgramForm({changeState, program, sendForm, formType}){
 
     if(formType === "new"){
       // reset form
-      setProductName("")
-      setStartDate("")
-      setMethodology("")
-      setProductOwnerName("")
-      setscrumMasterName("")
-      setDeveloper1("")
-      setDeveloper2("")
-      setDeveloper3("")
-      setDeveloper4("")
-      setDeveloper5("")
-      
+      setProductName("");
+      setStartDate("");
+      setMethodology("");
+      setProductOwnerName("");
+      setscrumMasterName("");
+      setDeveloper1("");
+      setDeveloper2("");
+      setDeveloper3("");
+      setDeveloper4("");
+      setDeveloper5("");
     }
+     //
+     setIsSaved(true)
   }
 
   return (
     <form onSubmit={handleSubmit}>
       { error && <small className='error-message'>{error.message}</small>}
-      { success && <small className='success-message'>{success.message}</small>}
+      { success && isSaved &&<small className='success-message'>{success.message}</small>}
 
       <CustomInput 
         label="Program Name" 
@@ -191,7 +195,18 @@ function ProgramForm({changeState, program, sendForm, formType}){
         value={developer5} 
         onChange={(e) => setDeveloper5(e.target.value)}
         />
-      <button className="form-button" type='submit'>Save</button>
+
+      { !isSaved ? 
+          <button className="form-button" type='submit'>Save</button>
+          : 
+          <button 
+            className="form-button" 
+            onClick={(e) => {
+              e.preventDefault();
+              setIsSaved(false)
+            }}
+          >Go Again</button>
+      }  
     </form>
   )
 }

@@ -36,19 +36,54 @@ app.use(express.urlencoded({ extended: true}))      // parses data from forms
 app.use(express.json());                            // parse json 
 
 // ROUTES
-// sends a list product objects
+/**
+ * @swagger
+ * /api/programs: 
+ *  get:
+ *    description: Used to request list of products
+ *    responses:
+ *      '200' : 
+ *        description : a successful response
+ */
 app.get('/api/programs', (req,res) => {
   res.status(200).send(JSON.stringify(data));
 })
 
-// sends a product object 
+/**
+ * @swagger
+ * /api/edit/:productId: 
+ *  get:
+ *    description: Used to request a product
+ *    responses:
+ *      '200' : 
+ *        description : a successful response
+ */
 app.get('/api/edit/:productId', (req, res) => {
   const productId = req.params.productId;
   const program = data.find( p => p.productId === productId);
   res.status(200).send(JSON.stringify(program));
 })
 
-// creates a new product in product lists
+/**
+ * @swagger
+ * /api/programs: 
+ *  post:
+ *    description: Used to create a product
+ *    parameters:
+ *      - in: body
+ *        name: product
+ *        schema:
+ *          productId : string
+ *          productOwnerName : string
+ *          scrumMasterName : string
+ *          productName : string
+ *          startDate : string
+ *          methodology : string
+ *          developers : [string]
+ *    responses:
+ *      '201' : 
+ *        description : successful added product 
+ */
 app.post('/api/programs', async (req, res) => {
   // generates id
   const guid = aguid();
@@ -56,10 +91,29 @@ app.post('/api/programs', async (req, res) => {
   data.push(newProgram);
   fs.writeFileSync("./mock_data.json", JSON.stringify(data,null,4));
 
-  res.status(200).send(JSON.stringify(data));
+  res.status(201).send(JSON.stringify(data));
 })
 
-// updates product object in a list
+/**
+ * @swagger
+ * /api/edit/:productId: 
+ *  patch:
+ *    description: Used to update a product
+ *    parameters:
+ *      - in: body
+ *        name: product
+ *        schema:
+ *          productId : string
+ *          productOwnerName : string
+ *          scrumMasterName : string
+ *          productName : string
+ *          startDate : string
+ *          methodology : string
+ *          developers : string
+ *    responses:
+ *      '200' : 
+ *        description : successfully updated product
+ */
 app.patch('/api/edit/:productId', async (req, res) => {
   const productId = req.params.productId
   const editProgram = req.body;

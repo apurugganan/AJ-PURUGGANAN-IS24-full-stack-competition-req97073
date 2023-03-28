@@ -10,6 +10,9 @@ const swaggerUi = require('swagger-ui-express');
 // mock data
 const data = require('./mock_data.json');
 
+// utilities
+const ExpressError = require('./utilities/ExpressError');
+
 // swagger
 // Extended: https://swagger.io/specification/#infoObject
 const swaggerOptions = {
@@ -65,10 +68,16 @@ app.get('/api/programs', (req,res) => {
  *      '200' : 
  *        description : a successful response
  */
-app.get('/api/edit/:productId', (req, res) => {
-  const productId = req.params.productId;
-  const program = data.find( p => p.productId === productId);
-  res.status(200).send(JSON.stringify(program));
+app.get('/api/edit/:productId', (req, res, next) => {
+  try{
+    const productId = req.params.productId;
+    const program = data.find( p => p.productId === productId);
+    if(!program) throw new ExpressError(400, 'no matching product')
+    
+    res.status(200).send(JSON.stringify(program));
+  } catch(err){
+    next(err)
+  }
 })
 
 /**
@@ -99,27 +108,74 @@ app.get('/api/edit/:productId', (req, res) => {
  *      '201' : 
  *        description : successful added product 
  */
-app.post('/api/programs', async (req, res) => {
-  // generates id
-  const guid = aguid();
-  const newProgram = {productId : guid , ...req.body};
-  data.push(newProgram);
-  fs.writeFileSync("./mock_data.json", JSON.stringify(data,null,4));
+app.post('/api/programs', async (req, res, next) => {
+  try{
+    const {productName, startDate, methodology, productOwnerName, scrumMasterName, developers} = req.body;
+    // validate body
+    if(!productName || !startDate || !methodology || !productOwnerName || !scrumMasterName || !developers ){
+      throw new ExpressError(400, 'required fields incomplete')
+    }
 
-  res.status(201).send(JSON.stringify(data));
+    // generates id
+    const guid = aguid();
+    const newProgram = {
+      productId : guid,
+      productName, 
+      startDate, 
+      methodology, 
+      productOwnerName, 
+      scrumMasterName, 
+      developers
+    };
+    
+    data.push(newProgram);
+    fs.writeFileSync("./mock_data.json", JSON.stringify(data,null,4));
+    
+    res.status(201).send(JSON.stringify(data));
+
+  } catch(err) {
+    next(err)
+  }
 })
 
 
-app.put('/api/edit/:productId', async (req, res) => {
-  const productId = req.params.productId
-  const editProgram = req.body;
-  const findProgram = await data.find(p => p.productId === productId);
-  let index = await data.findIndex( p => p.productId === productId);
-  data[index] = {productId : findProgram.productId, ...editProgram};
-  fs.writeFileSync("./mock_data.json", JSON.stringify(data,null,4));
+app.put('/api/edit/:productId', async (req, res, next) => {
+  try{
+    const productId = req.params.productId;
+    const editProgram = req.body;
+    const findProgram = await data.find(p => p.productId === productId);
 
-  res.status(200).send(JSON.stringify(data))
+    if(!findProgram) throw new ExpressError(400, 'no product matches')
+    let index = await data.findIndex( p => p.productId === productId);
+    data[index] = {productId : findProgram.productId, ...editProgram};
+
+    fs.writeFileSync("./mock_data.json", JSON.stringify(data,null,4));
+
+    res.status(200).send(JSON.stringify(data))
+  } catch(err){
+    next(err)
+  }
 })
+
+
+// 404 Route
+app.all('*', (req, res, next)=> {
+  next(new ExpressError(404, 'Resource not found.'));
+})
+
+// default errorhandler
+app.use((error, req, res, next) => {
+  if(!error.statusCode){
+    error.statusCode = 500
+  }
+  if(!error.message){
+    error.message = "Whoops! Something went wrong."
+  }
+  const obj = {message : error.message}
+  res.status(error.statusCode).send(JSON.stringify(obj))
+})
+
+
 
 // LISTEN
 app.listen(port, () => {

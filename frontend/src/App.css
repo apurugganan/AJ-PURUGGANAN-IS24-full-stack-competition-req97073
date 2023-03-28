@@ -57,3 +57,16 @@ select.form-input{
   width : 120px;
   padding: 2px;
 }
+
+.error-message{
+  color: red;
+  padding-left: 8px;
+  padding-bottom: 5px;
+}
+
+
+.success-message{
+  color: green;
+  padding-left: 8px;
+  padding-bottom: 5px;
+}

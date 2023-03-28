@@ -1,6 +1,6 @@
 
 # BC Public Service: Coding Challenge
-#### aj-purugganan-IS24-full-stack-competition-req97073
+#### AJ-PURUGGANAN-IS24-full-stack-competition-req97073.git
 
 ## Description
 build a Web Application that tracks and manages Web Applications developed by the Province of BC
@@ -9,7 +9,7 @@ build a Web Application that tracks and manages Web Applications developed by th
 ## Installation
 1. Clone repository on terminal:
 ```
-git clone https://github.com/apurugganan/aj-purugganan-IS24-full-stack-competition-req97073.git
+git clone https://github.com/apurugganan/AJ-PURUGGANAN-IS24-full-stack-competition-req97073.git
 ```
 
 2. Navigate to project folder

@@ -68,10 +68,16 @@ app.get('/api/programs', (req,res) => {
  *      '200' : 
  *        description : a successful response
  */
-app.get('/api/edit/:productId', (req, res) => {
-  const productId = req.params.productId;
-  const program = data.find( p => p.productId === productId);
-  res.status(200).send(JSON.stringify(program));
+app.get('/api/edit/:productId', (req, res, next) => {
+  try{
+    const productId = req.params.productId;
+    const program = data.find( p => p.productId === productId);
+    if(!program) throw new ExpressError(400, 'no matching product')
+    res.status(200).send(JSON.stringify(program));
+
+  } catch(err){
+    next(err)
+  }
 })
 
 /**
@@ -102,14 +108,31 @@ app.get('/api/edit/:productId', (req, res) => {
  *      '201' : 
  *        description : successful added product 
  */
-app.post('/api/programs', async (req, res) => {
-  // generates id
-  const guid = aguid();
-  const newProgram = {productId : guid , ...req.body};
-  data.push(newProgram);
-  fs.writeFileSync("./mock_data.json", JSON.stringify(data,null,4));
+app.post('/api/programs', async (req, res, next) => {
+  try{
+    const {productName, startDate, methodology, productOwnerName, scrumMasterName, developers} = req.body;
+    if(!productName || !startDate || !methodology || !productOwnerName || !scrumMasterName || !developers ){
+      throw new ExpressError(400, 'required fields incomplete')
+    }
 
-  res.status(201).send(JSON.stringify(data));
+    // generates id
+    const guid = aguid();
+    const newProgram = {
+      productId : guid,
+      productName, 
+      startDate, 
+      methodology, 
+      productOwnerName, 
+      scrumMasterName, 
+      developers
+    };
+    data.push(newProgram);
+    fs.writeFileSync("./mock_data.json", JSON.stringify(data,null,4));
+    res.status(201).send(JSON.stringify(data));
+
+  } catch(err) {
+    next(err)
+  }
 })
 
 

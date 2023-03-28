@@ -89,7 +89,7 @@ function ProgramForm({changeState, program, sendForm, formType}){
     const data = await sendForm(body);
     // let react know to change home
     changeState(data);
-    setSuccess({message : "program saved"});
+    setSuccess({message : "product saved"});
     setError("");
 
     if(formType === "new"){

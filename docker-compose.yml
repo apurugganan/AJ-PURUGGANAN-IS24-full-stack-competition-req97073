@@ -1,0 +1,21 @@
+version: "3"
+services:
+  docker-backend:
+    build: ./backend
+    image: docker-backend
+    ports:
+      - "3000:3000"
+    networks:
+      - app
+  docker-frontend:
+    build: ./frontend
+    image: docker-frontend
+    ports: 
+      - "8000:8000"
+    networks:
+      - app
+    depends_on:
+      - docker-backend
+networks:
+  app:
+    driver: bridge

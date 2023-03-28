@@ -13,7 +13,7 @@ const url = process.env.URL || "http://localhost:3000";
 function App() {
   const [programs, setPrograms] = useState([]);
 
-  // use
+  // get data
   useEffect( () => {
     (async () => {
       const response = await fetch(`${url}/api/programs`);
@@ -22,7 +22,7 @@ function App() {
     })();
   }, []);
 
-  // changestate
+  // methods
   function changeState(data){
     setPrograms(data)
   }

@@ -40,3 +40,18 @@ npm install
 ```
 npm run dev
 ```
+
+### Option 2
+1. Clone repository on terminal:
+```
+git clone https://github.com/apurugganan/AJ-PURUGGANAN-IS24-full-stack-competition-req97073.git
+```
+
+2. Navigate to project folder
+```
+cd aj-purugganan-IS24-full-stack-competition-req97073
+```
+3. Have your docker desktop or docker engine running, then run the app on the teminal:
+```
+docker-compose up --build
+```

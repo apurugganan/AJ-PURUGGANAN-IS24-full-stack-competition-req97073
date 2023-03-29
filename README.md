@@ -55,7 +55,7 @@ cd aj-purugganan-IS24-full-stack-competition-req97073
 ```
 docker-compose up --build
 ```
-## Starting Endpoints
+## Endpoints
 ### Server API
 ```
 http://localhost:3000/

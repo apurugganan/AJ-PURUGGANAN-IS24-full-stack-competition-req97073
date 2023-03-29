@@ -87,7 +87,7 @@ http://localhost:8000/
 ```
 
 ## Features of Application
-I. 
+### I. 
 1. Landing page has list of all products within IMB with relevent inofrmation:
     - Product Number
     - Product Name
@@ -101,7 +101,7 @@ I.
 3. Has title for each column
 4. Total number of all products
 
-II.
+### II.
 1. Add new porduct button allows user to answer questions in a form for the following items:
     - Product Name
     - Scrum Master
@@ -114,7 +114,7 @@ II.
 3. User must answer all questions to save
 4. Click on save button
 
-III. 
+### III. 
 1. On the list pagee, user is able to click on an edit button that enables to edit the following:
     - Product Name
     - Scrum Master
@@ -127,14 +127,14 @@ III.
 4. Start Date cannot be edited
 5. Edited version is persistent even after a page refresh
 
-IV.
+### IV.
 1. On the list page, user is able to search a person with Scrum Master role
 2. All columns fit the page
 3. There titles for each column
 4. A total number of all products of the Scrum Master is listed
 5. Only products listed include the Scrum Master's name 
 
-V.
+### V.
 1. On the list page, user is able to search a person with a Developer role
 2. All columns fit the page
 3. There titles for each column

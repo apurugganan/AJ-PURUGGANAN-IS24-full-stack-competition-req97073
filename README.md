@@ -123,7 +123,7 @@ http://localhost:8000/
     - Methodology (Agile or Waterfall)
 
 2. Button to save exits and user needs to click another button to access save button 
-3. Changes can be seen immediately on the table for lists
+3. Changes can be seen immediately on the table for products
 4. Start Date cannot be edited
 5. Edited version is persistent even after a page refresh
 

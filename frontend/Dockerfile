@@ -1,5 +1,4 @@
-
-FROM node
+FROM node:18.13.0.
 WORKDIR /frontend
 COPY package.json /frontend
 RUN npm install

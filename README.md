@@ -87,15 +87,29 @@ http://localhost:8000/
 ```
 
 ## Features of Application
+I. 
 1. landing page has list of all products within IMB with relevent inofrmation:
-- Product Number
-- Product Name
-- Scrum Master
-- Product Owner
-- Developer Names (up to 5)
-- Start Date
-- Methodology (Agile or Waterfall)
+    - Product Number
+    - Product Name
+    - Scrum Master
+    - Product Owner
+    - Developer Names (up to 5)
+    - Start Date
+    - Methodology (Agile or Waterfall)
 
 2. All columns fit on the page
 3. Has title for each column
 4. Total number of all products
+
+II.
+1. Add new porduct button allows user to answer questions in a form for the following items:
+    - Product Name
+    - Scrum Master
+    - Product Owner
+    - Developer Names (up to 5)
+    - Start Date
+    - Methodology (Agile or Waterfall)
+    
+2. Product number generated is automatic, and doesn't collide with previously generated productIds
+3. User must answer all questions to save
+4. Click on save button

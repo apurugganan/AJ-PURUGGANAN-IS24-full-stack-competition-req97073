@@ -113,3 +113,18 @@ II.
 2. Product number generated is automatic, and doesn't collide with previously generated productIds
 3. User must answer all questions to save
 4. Click on save button
+
+III. 
+1. On the list pagee, user is able to click on an edit button that enables to edit the following:
+    - Product Name
+    - Scrum Master
+    - Product Owner
+    - Developer Names (up to 5)
+    - Methodology (Agile or Waterfall)
+
+2. Button to save exits and user needs to click another button to access save button 
+3. Changes can be seen immediately on the table for lists
+4. startDate cannot be edited
+5. Edited version is persistent even after a page refresh
+
+

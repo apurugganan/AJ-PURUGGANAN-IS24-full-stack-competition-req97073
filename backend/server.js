@@ -57,7 +57,7 @@ app.get('/api/products', (req, res, next) => {
 
 /**
  * @swagger
- * /api/edit/:productId: 
+ * /api/edit/{productId}: 
  *  get:
  *    description: Used to request a product
  *    parameters:
@@ -140,11 +140,62 @@ app.post('/api/products', async (req, res, next) => {
   }
 })
 
-
+/**
+ * @swagger
+ * /api/edit/{productId}: 
+ *  put:
+ *    description: update a product by productId
+ *    parameters:
+ *      - in: path
+ *        name: productId
+ *        required: true
+ *        description: id of the product to update
+ *        schema: 
+ *          type: string
+ *          example: "26d11b24-1486-47c6-96c0-8d61217d5922"
+ *      - in : body
+ *        name: product
+ *        description: new properties for the product
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                productName:
+ *                  type: string
+ *                  example: "project snow"
+ *                productOwnerName:
+ *                  type: string
+ *                  example: "john doe"
+ *                developers:
+ *                  type: array
+ *                  items:
+ *                    type: string
+ *                    example:
+ *                      - "tony smith"
+ *                scrumMasterName:
+ *                  type: string
+ *                  example: "allan allen"
+ *                startDate:
+ *                  type: string
+ *                  example: "2023-01-01"
+ *                methodology:
+ *                  type: string
+ *                  example: "agile"
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
 app.put('/api/edit/:productId', async (req, res, next) => {
   try{
     const productId = req.params.productId;
-    const body = req.body;
+    const {productName, startDate, methodology, productOwnerName, scrumMasterName, developers }= req.body;
+    const body = {productName, startDate, methodology, productOwnerName, scrumMasterName, developers }; 
+    // validate body
+    if(!productName || !startDate || !methodology || !productOwnerName || !scrumMasterName || !developers ){
+      throw new ExpressError(400, 'required fields incomplete')
+    }
 
     const match = await data.find(p => p.productId === productId);
     if(!match) throw new ExpressError(400, 'no product matches');

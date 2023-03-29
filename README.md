@@ -85,3 +85,17 @@ http://localhost:3000/api/api-docs
 ```
 http://localhost:8000/
 ```
+
+## Features of Application
+1. landing page has list of all products within IMB with relevent inofrmation:
+- Product Number
+- Product Name
+- Scrum Master
+- Product Owner
+- Developer Names (up to 5)
+- Start Date
+- Methodology (Agile or Waterfall)
+
+2. All columns fit on the page
+3. Has title for each column
+4. Total number of all products

@@ -1,20 +1,21 @@
 import {useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
-import ProgramForm from "../components/ProgramForm";
+import ProductForm from "../components/ProductForm";
 
 function Edit({changeState}){
   const { productId } = useParams();
-  const [program, setProgram] = useState({});
+  const [product, setProduct] = useState({});
+  const formType = "edit";
 
   useEffect( () => {
     (async () => {
       const response = await fetch(`http://localhost:3000/api/edit/${productId}`);
       const data = await response.json();    
-      setProgram(data)
+      setProduct(data)
     })();
   }, [productId]);
 
-  async function editProgram(body){
+  async function editProduct(body){
     const response = await fetch(`http://localhost:3000/api/edit/${productId}`, {
       method: 'PUT',
       body: JSON.stringify(body),
@@ -27,11 +28,11 @@ function Edit({changeState}){
   return (
     <div>
       <h4>Edit Product {productId}</h4>
-        <ProgramForm 
+        <ProductForm 
           changeState={changeState} 
-          program={program} 
-          sendForm={editProgram}
-          formType="edit"
+          product={product} 
+          sendForm={editProduct}
+          formType={formType}
         />
     </div>
   )

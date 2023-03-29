@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import CustomInput from './CustomInput'
 
-function ProgramForm({changeState, program, sendForm, formType}){
+function ProductForm({changeState, product, sendForm, formType}){
   const [productName, setProductName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [methodology, setMethodology] = useState("");
@@ -12,21 +12,20 @@ function ProgramForm({changeState, program, sendForm, formType}){
   const [developer3, setDeveloper3] = useState("");
   const [developer4, setDeveloper4] = useState("");
   const [developer5, setDeveloper5] = useState("");
-
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isSaved, setIsSaved] = useState(false);
 
-  const pName = program?.productName ?? "";
-  const pStart = program?.startDate?.split('/').join('-') ?? "";
-  const pMet = program?.methodology ?? "";
-  const pOwner = program?.productOwnerName ?? "";
-  const scrum = program?.scrumMasterName ?? "";
-  const dev1 = program?.developers?.[0] ?? "";
-  const dev2 = program?.developers?.[1] ?? "";
-  const dev3 = program?.developers?.[2] ?? "";
-  const dev4 = program?.developers?.[3] ?? "";
-  const dev5 = program?.developers?.[4] ?? "";
+  const pName = product?.productName ?? "";
+  const pStart = product?.startDate?.split('/').join('-') ?? "";
+  const pMet = product?.methodology ?? "";
+  const pOwner = product?.productOwnerName ?? "";
+  const scrum = product?.scrumMasterName ?? "";
+  const dev1 = product?.developers?.[0] ?? "";
+  const dev2 = product?.developers?.[1] ?? "";
+  const dev3 = product?.developers?.[2] ?? "";
+  const dev4 = product?.developers?.[3] ?? "";
+  const dev5 = product?.developers?.[4] ?? "";
 
   useEffect(()=>{
     (() => {
@@ -54,7 +53,6 @@ function ProgramForm({changeState, program, sendForm, formType}){
     dev5
   ])
 
-
   async function handleSubmit(evt){
     evt.preventDefault()
     if(!productName 
@@ -65,15 +63,17 @@ function ProgramForm({changeState, program, sendForm, formType}){
       || !developer1
       ){
       setError({message : "Please make sure all necessary fields are filled. Required *"});
-      setSuccess("")
+      setSuccess("");
+
       return
     }
 
+    // build developers data
     const developers = [developer1];
-    if(developer2){developers.push(developer2)}
-    if(developer3){developers.push(developer3)}
-    if(developer4){developers.push(developer4)}
-    if(developer5){developers.push(developer5)}
+    if(developer2){developers.push(developer2)};
+    if(developer3){developers.push(developer3)};
+    if(developer4){developers.push(developer4)};
+    if(developer5){developers.push(developer5)};
 
     // create object to be passed
     const body = {
@@ -87,8 +87,9 @@ function ProgramForm({changeState, program, sendForm, formType}){
 
     // network call
     const data = await sendForm(body);
-    // let react know to change home
+    // update data
     changeState(data);
+
     setSuccess({message : "product saved"});
     setError("");
 
@@ -105,7 +106,7 @@ function ProgramForm({changeState, program, sendForm, formType}){
       setDeveloper4("");
       setDeveloper5("");
     }
-     //
+     // hide save button
      setIsSaved(true)
   }
 
@@ -115,7 +116,7 @@ function ProgramForm({changeState, program, sendForm, formType}){
       { success && isSaved &&<small className='success-message'>{success.message}</small>}
 
       <CustomInput 
-        label="Program Name" 
+        label="Product Name" 
         type="text" 
         value={productName} 
         onChange={(e) => setProductName(e.target.value)}
@@ -176,40 +177,40 @@ function ProgramForm({changeState, program, sendForm, formType}){
         type="text" 
         value={developer2} 
         onChange={(e) => setDeveloper2(e.target.value)} 
-        />
+      />
       <CustomInput 
         label="Developer 3" 
         type="text" 
         value={developer3} 
         onChange={(e) => setDeveloper3(e.target.value)}
-        />
+      />
       <CustomInput 
         label="Developer 4" 
         type="text" 
         value={developer4} 
         onChange={(e) => setDeveloper4(e.target.value)}
-        />
+      />
       <CustomInput 
         label="Developer 5" 
         type="text" 
         value={developer5} 
         onChange={(e) => setDeveloper5(e.target.value)}
-        />
+      />
 
-      { !isSaved ? 
-          <button className="form-button" type='submit'>Save</button>
-          : 
-          <button 
+      { 
+        !isSaved 
+        ? <button className="form-button" type='submit'>Save</button>
+        : <button 
             className="form-button" 
             onClick={(e) => {
               e.preventDefault();
-              setIsSaved(false)
+              setIsSaved(false);
             }}
-          >Go Again</button>
+          > { formType === "new" ? "Add New Product Again" : "Edit Product Again"} </button>
       }  
     </form>
   )
 }
 
-export default ProgramForm;
+export default ProductForm;
 

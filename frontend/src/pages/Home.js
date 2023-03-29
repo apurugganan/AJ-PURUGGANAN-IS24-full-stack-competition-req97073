@@ -1,9 +1,9 @@
 import Table from "../components/Table";
 
-function Home({programs}){
+function Home({products}){
   return (
     <div>
-      <Table programs={programs}/>
+      <Table products={products}/>
     </div>
   )
 }

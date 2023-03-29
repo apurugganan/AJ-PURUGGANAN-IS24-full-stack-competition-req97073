@@ -1,9 +1,10 @@
-import ProgramForm from "../components/ProgramForm";
+import ProductForm from "../components/ProductForm";
 
 function New({changeState}){
-
-  async function addProgram(body){
-    const response = await fetch(`http://localhost:3000/api/programs`, {
+  const formType = "new"
+  // method
+  async function addProduct(body){
+    const response = await fetch(`http://localhost:3000/api/products`, {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
@@ -12,13 +13,14 @@ function New({changeState}){
     const data = await response.json();
     return data;
   }
+
   return (
     <div>
       <h4>Add New Product</h4>
-      <ProgramForm 
+      <ProductForm 
         changeState={changeState} 
-        sendForm={addProgram} 
-        formType="new"
+        sendForm={addProduct} 
+        formType={formType}
       />
     </div>
   )

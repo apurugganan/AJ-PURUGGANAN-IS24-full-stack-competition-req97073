@@ -1,34 +1,20 @@
 import {Link} from 'react-router-dom';
 
-function TableRow({program}){
+function TableRow({product}){
+  const productId = `/edit/${product.productId}`
 
-  const productId = `/edit/${program.productId}`
   return(
     <tr>
       <td>
-        {program.productId}
+        {product.productId}
         <p><Link to={productId}>Edit</Link></p>
       </td>
-      <td>
-        {program.productName}
-      </td>
-      <td>
-        {program.scrumMasterName}
-      </td>
-      <td>
-        {program.productOwnerName}
-      </td>
-      <td>
-        {program.developers.map(
-          (name, index) => <p key={index}>{name}</p>
-        )}
-      </td>
-      <td>
-        {program.startDate}
-      </td>
-      <td>
-        {program.methodology}
-      </td>
+      <td>{product.productName}</td>
+      <td>{product.scrumMasterName}</td>
+      <td>{product.productOwnerName}</td>
+      <td>{product.developers.map((name, index) => <p key={index}>{name}</p>)}</td>
+      <td>{product.startDate}</td>
+      <td>{product.methodology}</td>
     </tr>
   )
 }

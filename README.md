@@ -88,7 +88,7 @@ http://localhost:8000/
 
 ## Features of Application
 I. 
-1. landing page has list of all products within IMB with relevent inofrmation:
+1. Landing page has list of all products within IMB with relevent inofrmation:
     - Product Number
     - Product Name
     - Scrum Master
@@ -127,9 +127,17 @@ III.
 4. Start Date cannot be edited
 5. Edited version is persistent even after a page refresh
 
-IV
+IV.
 1. On the list page, user is able to search a person with Scrum Master role
 2. All columns fit the page
 3. There titles for each column
 4. A total number of all products of the Scrum Master is listed
-5. Only products of listed include the Scrum Master's name 
+5. Only products listed include the Scrum Master's name 
+
+V.
+1. On the list page, user is able to search a person with a Developer role
+2. All columns fit the page
+3. There titles for each column
+4. A total number of all products of the Developer is listed
+5. Only products listed include the Developer's name 
+

@@ -17,6 +17,7 @@ const ExpressError = require('./utilities/ExpressError');
 // Extended: https://swagger.io/specification/#infoObject
 const swaggerOptions = {
   swaggerDefinition: {
+    openapi: "3.0.0",
     info : {
       title: 'Products API',
       descrtiption : "Product API information",
@@ -38,14 +39,22 @@ app.use(express.urlencoded({ extended: true}))      // parses data from forms
 app.use(express.json());                            // parse json 
 
 // ROUTES
+
 /**
  * @swagger
- * /api/products: 
- *  get:
- *    description: Used to request list of products
- *    responses:
- *      '200' : 
- *        description : a successful response
+ * /api/products:
+ *   get:
+ *     summary: gets all products
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: the list of the posts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
  */
 app.get('/api/products', (req, res, next) => {
   try{
@@ -59,7 +68,9 @@ app.get('/api/products', (req, res, next) => {
  * @swagger
  * /api/edit/{productId}: 
  *  get:
- *    description: Used to request a product
+ *    summary: get a product
+ *    tags: [Products]
+ *    description: used to request a product
  *    parameters:
  *      - in: path
  *        name: productId
@@ -67,9 +78,14 @@ app.get('/api/products', (req, res, next) => {
  *        description: String guid
  *        schema: 
  *          type: string
+ *          example: 26d11b24-1486-47c6-96c0-8d61217d5922
  *    responses:
  *      '200' : 
- *        description : a successful response
+ *        description : returns product
+ *        content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/Product'
  */
 app.get('/api/edit/:productId', (req, res, next) => {
   try{
@@ -87,29 +103,39 @@ app.get('/api/edit/:productId', (req, res, next) => {
  * @swagger
  * /api/products: 
  *  post:
- *    description: Used to create a product
- *    parameters:
- *      - in: body
- *        name: product
- *        required: true
- *        content:
- *          application/json:
+ *    summary: add a product
+ *    tags: [Products]
+ *    description: used to create a product
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
  *          schema:
- *            type : object
+ *            type: object
  *            properties:
- *              productId : string
- *              productOwnerName : string
- *              scrumMasterName : string
- *              productName : string
- *              startDate : string
- *              methodology : string
- *              developers :
+ *              productName : 
+ *                type: string
+ *                example: HelloWorld
+ *              startDate : 
+ *                type: string
+ *                example: 2023-01-01
+ *              methodology : 
+ *                type: string
+ *                example: agile
+ *              productOwnerName : 
+ *                type: string
+ *                example: Bob Smith
+ *              scrumMasterName : 
+ *                type: string
+ *                example: Jet Lane
+ *              developers : 
  *                type: array
- *                items:  
+ *                items : 
  *                  type: string
+ *                example: [John Doe,Jane Doe ]
  *    responses:
  *      '201' : 
- *        description : successful added product 
+ *        description : product was created
  */
 app.post('/api/products', async (req, res, next) => {
   try{
@@ -144,6 +170,8 @@ app.post('/api/products', async (req, res, next) => {
  * @swagger
  * /api/edit/{productId}: 
  *  put:
+ *    summary: edit a product
+ *    tags: [Products]
  *    description: update a product by productId
  *    parameters:
  *      - in: path
@@ -153,39 +181,15 @@ app.post('/api/products', async (req, res, next) => {
  *        schema: 
  *          type: string
  *          example: "26d11b24-1486-47c6-96c0-8d61217d5922"
- *      - in : body
- *        name: product
- *        description: new properties for the product
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                productName:
- *                  type: string
- *                  example: "project snow"
- *                productOwnerName:
- *                  type: string
- *                  example: "john doe"
- *                developers:
- *                  type: array
- *                  items:
- *                    type: string
- *                    example:
- *                      - "tony smith"
- *                scrumMasterName:
- *                  type: string
- *                  example: "allan allen"
- *                startDate:
- *                  type: string
- *                  example: "2023-01-01"
- *                methodology:
- *                  type: string
- *                  example: "agile"
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Product'
  *    responses:
  *      '200':
- *        description: A successful response
+ *        description: product edited
  */
 app.put('/api/edit/:productId', async (req, res, next) => {
   try{
@@ -212,6 +216,7 @@ app.put('/api/edit/:productId', async (req, res, next) => {
 })
 
 
+// ERROR HANDLING
 // 404 Route
 app.all('*', (req, res, next)=> {
   next(new ExpressError(404, 'Resource not found.'));
@@ -234,3 +239,53 @@ app.use((error, req, res, next) => {
 app.listen(port, () => {
   console.log(`Server listening at port: ${port}`);
 })
+
+
+// SWAGGER DEFINITIONS
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Product:
+ *       type: object
+ *       required:
+ *         - productId
+ *         - productName
+ *         - startDate
+ *       properties:
+ *          productId:
+ *            type: string
+ *          productName:
+ *            type: string
+ *          startDate:
+ *            type: string
+ *          methodology:
+ *            type: string
+ *          productOwnerName: 
+ *            type: string
+ *          scrumMaster:
+ *            type: string
+ *          developers:
+ *            type: array
+ *            items:
+ *              type: string
+ *       example:
+ *            productId : 26d11b24-1486-47c6-96c0-8d61217d5922,
+ *            productName: Sub-Ex
+ *            startDate: 2023-01-01
+ *            methodology: agile
+ *            productOwnerName : Rebecca Girling 
+ *            scrumMasterName : Tom Smith 
+ *            developers : [ John, Joe, Jane, Janet] 
+ */
+
+/**
+ * @swagger
+ *  tags:
+ *    name: Products
+ *    description: products of imb
+ */
+
+
+
+

@@ -130,14 +130,14 @@ http://localhost:8000/
 ### IV.
 1. On the list page, user is able to search a person with Scrum Master role
 2. All columns fit the page
-3. There titles for each column
+3. There are titles for each column
 4. A total number of all products of the Scrum Master is listed
 5. Only products listed include the Scrum Master's name 
 
 ### V.
 1. On the list page, user is able to search a person with a Developer role
 2. All columns fit the page
-3. There titles for each column
+3. There are titles for each column
 4. A total number of all products of the Developer is listed
 5. Only products listed include the Developer's name 
 

@@ -1,10 +1,16 @@
 
-# BC Public Service: Coding Challenge
-#### AJ-PURUGGANAN-IS24-full-stack-competition-req97073.git
+# Province of BC: Coding Challenge
+#### Entry: AJ-PURUGGANAN-IS24-full-stack-competition-req97073.git
 
 ## Description
-build a Web Application that tracks and manages Web Applications developed by the Province of BC
+Build a Web Application that tracks and manages Web Applications developed by the Province of BC
 
+## Frameworks
+### Backend
+- ExpressJS
+
+### Frontend
+- ReactJS
 
 ## Installation
 
@@ -58,7 +64,7 @@ docker-compose up --build
 ## Endpoints
 ### Server API
 ```
-http://localhost:3000/
+http://localhost:3000/api
 
 // GET products
 http://localhost:3000/api/products

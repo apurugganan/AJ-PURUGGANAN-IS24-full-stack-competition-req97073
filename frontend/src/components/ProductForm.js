@@ -130,6 +130,7 @@ function ProductForm({changeState, product, sendForm, formType}){
         value={startDate} 
         onChange={(e) => setStartDate(e.target.value)}
         isRequired="true"
+        formType={formType}
         />
       { error && !startDate && <small className='error-message'>field is required</small>}
 

@@ -1,44 +1,41 @@
 import { useState, useEffect} from 'react';
 import {Link, Route, Routes} from 'react-router-dom';
-
 import Home from './pages/Home';
 import New from './pages/New';
 import Edit from './pages/Edit';
 import "./App.css";
 
-
-// mockurl
+// url ibm 
 const url = process.env.URL || "http://localhost:3000";
 
 function App() {
-  const [programs, setPrograms] = useState([]);
+  const [products, setProducts] = useState([]);
 
-  // get data
+  // get products and set state
   useEffect( () => {
     (async () => {
-      const response = await fetch(`${url}/api/programs`);
+      const response = await fetch(`${url}/api/products`);
       const data = await response.json();    
-      setPrograms(data);
+      setProducts(data);
     })();
   }, []);
 
-  // methods
+  // method
   function changeState(data){
-    setPrograms(data)
+    setProducts(data);
   }
+
   return (
     <div className='container'>
       <h1>IMB Products</h1>
       <Link to="/"><span>Home</span></Link>
-      <Link to="/new"><span>Add Products</span></Link>
-      
+      <Link to="/new"><span>Add Product</span></Link>
       <Routes>
-        <Route exact path="/" element={<Home programs={programs}/>} />
+        <Route exact path="/" element={<Home products={products}/>} />
         <Route exact path="/new" element={<New changeState={changeState}/>} />
         <Route exact path="/edit/:productId" element={<Edit changeState={changeState}/>} />
       </Routes>
     </div>
-
   );
 }
 export default App;

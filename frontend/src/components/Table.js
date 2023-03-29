@@ -1,7 +1,7 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import TableRow from './TableRow'
 
-function Table({programs}){
+function Table({products}){
   const [searchTerm, setSearchTerm] = useState("");
   const [role, setRole] = useState("");
 
@@ -40,12 +40,12 @@ function Table({programs}){
       </div>
       <h4>Number of Products: 
         { role === "scrum master" ? 
-            programs
+            products
               .filter( p => p.scrumMasterName.toLowerCase().includes(searchTerm.toLocaleLowerCase())).length
         : role  === "developer" ?
-            programs
+            products
               .filter( p => p.developers.join(',').toLowerCase().includes(searchTerm.toLocaleLowerCase())).length
-        : programs.length
+        : products.length
         }
       </h4>
       <table>
@@ -57,16 +57,15 @@ function Table({programs}){
           </tr>
         </thead>
         <tbody>
-            
-            { role === "scrum master" ? 
-                programs
+            { role === "scrum master" 
+              ? products
                   .filter( p => p.scrumMasterName.toLowerCase().includes(searchTerm.toLocaleLowerCase()))
-                  .map((program) => <TableRow key={program.productId}program={program}/>)
-              : role  === "developer" ?
-                programs
+                  .map((product) => <TableRow key={product.productId} product={product}/>)
+              : role  === "developer" 
+              ? products
                   .filter( p => p.developers.join(',').toLowerCase().includes(searchTerm.toLocaleLowerCase()))
-                  .map((program) => <TableRow key={program.productId}program={program}/>)
-              : programs.map((program) => <TableRow key={program.productId}program={program}/>)
+                  .map((product) => <TableRow key={product.productId} product={product}/>)
+              : products.map((product) => <TableRow key={product.productId} product={product}/>)
             }
         </tbody>    
       </table>

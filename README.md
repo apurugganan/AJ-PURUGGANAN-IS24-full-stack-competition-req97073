@@ -124,7 +124,12 @@ III.
 
 2. Button to save exits and user needs to click another button to access save button 
 3. Changes can be seen immediately on the table for lists
-4. startDate cannot be edited
+4. Start Date cannot be edited
 5. Edited version is persistent even after a page refresh
 
-
+IV
+1. On the list page, user is able to search a person with Scrum Master role
+2. All columns fit the page
+3. There titles for each column
+4. A total number of all products of the Scrum Master is listed
+5. Only products of listed include the Scrum Master's name 

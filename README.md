@@ -7,6 +7,8 @@ build a Web Application that tracks and manages Web Applications developed by th
 
 
 ## Installation
+
+### Option 1
 1. Clone repository on terminal:
 ```
 git clone https://github.com/apurugganan/AJ-PURUGGANAN-IS24-full-stack-competition-req97073.git

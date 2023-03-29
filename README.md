@@ -3,7 +3,7 @@
 #### Entry: AJ-PURUGGANAN-IS24-full-stack-competition-req97073.git
 
 ## Description
-Build a Web Application that tracks and manages Web Applications developed by the Province of BC as outlined in git repository: https://github.com/bcgov/citz-imb-full-stack-code-challenge-req97073 as of March 27,2023.
+Build a Web Application that tracks and manages Web Applications developed by the Province of BC as outlined in git repository https://github.com/bcgov/citz-imb-full-stack-code-challenge-req97073 as of March 27,2023.
 
 ## Frameworks
 ### Backend

@@ -71,6 +71,9 @@ http://localhost:3000/api/edit/{productId}
 
 // PUT product
 http://localhost:3000/api/edit/{productId}
+
+// SWAGGER Documentation
+http://localhost:3000/api/api-docs
 ```
 ### Frontend App
 ```

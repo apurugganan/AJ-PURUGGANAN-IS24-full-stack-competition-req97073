@@ -48,6 +48,10 @@ form{
    padding: 5px;
 }
 
+.form-required{
+  font-size: .6em;
+}
+
 select.form-input{
   width: 205px;
 }
@@ -69,4 +73,12 @@ select.form-input{
   color: green;
   padding-left: 8px;
   padding-bottom: 5px;
+}
+
+#readonly{
+  color: brown;
+}
+
+#input-readonly{
+  background-color: rgb(228, 228, 228);
 }

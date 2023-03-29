@@ -27,7 +27,10 @@ function Edit({changeState}){
   }
   return (
     <div>
-      <h4>Edit Product {productId}</h4>
+      <h4>Edit Product</h4>
+      <div id="product-id">
+        <small>Product Num: {productId}</small>
+      </div>
         <ProductForm 
           changeState={changeState} 
           product={product} 

@@ -180,7 +180,7 @@ app.post('/api/products', async (req, res, next) => {
  *        description: id of the product to update
  *        schema: 
  *          type: string
- *          example: "26d11b24-1486-47c6-96c0-8d61217d5922"
+ *          example: 0f6a6781-893a-44d8-9c63-c9b6db8986c1
  *    requestBody:
  *      required: true
  *      content:
@@ -270,7 +270,7 @@ app.listen(port, () => {
  *            items:
  *              type: string
  *       example:
- *            productId : 26d11b24-1486-47c6-96c0-8d61217d5922,
+ *            productId : 0f6a6781-893a-44d8-9c63-c9b6db8986c1
  *            productName: Sub-Ex
  *            startDate: 2023-01-01
  *            methodology: agile

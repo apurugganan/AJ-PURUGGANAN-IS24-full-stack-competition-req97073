@@ -129,7 +129,7 @@ http://localhost:8000/
 2. Button to save exits and user needs to click another button to access save button 
 3. Changes can be seen immediately on the table for products
 4. Start Date cannot be edited
-5. Add Product and Edited version is persistent even after a page refresh on list page. Edited Persisient on form.
+5. Add Product and Edited version is persistent even after a page refresh on list page. Edited Persistent on form.
 
 ---
 

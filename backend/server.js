@@ -78,7 +78,7 @@ app.get('/api/products', (req, res, next) => {
  *        description: String guid
  *        schema: 
  *          type: string
- *          example: 26d11b24-1486-47c6-96c0-8d61217d5922
+ *          example: 0f6a6781-893a-44d8-9c63-c9b6db8986c1
  *    responses:
  *      '200' : 
  *        description : returns product

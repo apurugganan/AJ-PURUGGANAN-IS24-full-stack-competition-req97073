@@ -1,6 +1,6 @@
 
 # Province of BC: Coding Challenge
-#### Entry: AJ-PURUGGANAN-IS24-full-stack-competition-req97073.git
+#### Entry: AJ-PURUGGANAN-IS24-full-stack-competition-req97073
 
 ## Description
 Build a Web Application that tracks and manages Web Applications developed by the Province of BC as outlined in git repository https://github.com/bcgov/citz-imb-full-stack-code-challenge-req97073 as of March 27,2023.
@@ -86,7 +86,7 @@ http://localhost:3000/api/api-docs
 http://localhost:8000/
 ```
 
-## Features of Application
+## Features
 ### I. 
 1. Landing page has list of all products within IMB with relevent inofrmation:
     - Product Number
@@ -101,6 +101,8 @@ http://localhost:8000/
 3. Has title for each column
 4. Total number of all products
 
+--- 
+
 ### II.
 1. Add new porduct button allows user to answer questions in a form for the following items:
     - Product Name
@@ -113,6 +115,8 @@ http://localhost:8000/
 2. Product number generated is automatic, and doesn't collide with previously generated productIds
 3. User must answer all questions to save
 4. Click on save button
+
+---
 
 ### III. 
 1. On the list pagee, user is able to click on an edit button that enables to edit the following:
@@ -127,12 +131,16 @@ http://localhost:8000/
 4. Start Date cannot be edited
 5. Edited version is persistent even after a page refresh
 
+---
+
 ### IV.
 1. On the list page, user is able to search a person with Scrum Master role
 2. All columns fit the page
 3. There are titles for each column
 4. A total number of all products of the Scrum Master is listed
 5. Only products listed include the Scrum Master's name 
+
+---
 
 ### V.
 1. On the list page, user is able to search a person with a Developer role
